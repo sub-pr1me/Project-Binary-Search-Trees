@@ -17,7 +17,6 @@ function Tree(arr) {
   };
   sortedArr.sort((a,b) => a-b);
   let root = buildTree(sortedArr, 0, sortedArr.length-1);
-  console.log(sortedArr);
   return root;
 };
 
@@ -45,6 +44,21 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-
+function insert(root, key) {
+  if (root === null) {
+    return newNode(key);
+  };
+  if (root.data === key) {
+    return root;
+  };    
+  if (key < root.data) {
+    root.left = insert(root.left, key);
+  } else if (key > root.data) {
+    root.right = insert(root.right, key);
+  };        
+  return root;
+};
 
 prettyPrint(Tree(sample));
+console.log(' ');
+prettyPrint(insert(Tree(sample), 888));
