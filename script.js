@@ -94,20 +94,50 @@ function deleteItem(root, key) {
   return root;
 };
 
-function find(source, value) {
-  if (source === null) {
-    return source;
+function find(root, value) {
+  if (root === null) {
+    return root;
   };
-  if (value < source.data) {
-    return find(source.left, value);
-  } else if (value > source.data) {
-    return find(source.right, value);
+  if (value < root.data) {
+    return find(root.left, value);
+  } else if (value > root.data) {
+    return find(root.right, value);
   } else {
-    return source;
+    return root;
   };
+};
+
+function printValue(root) {
+  console.log(root.data);
+};
+
+function levelOrder(root, callback) {
+  if(!callback) throw new Error('A callback is required!');
+  if (!root) return [];
+  let que = [];
+  que.push(root);
+
+  while (que.length) {
+    let result = [];
+
+    while (que.length) {
+      let node = que.shift();
+      result.push(node);
+      if (node.left) {
+        que.push(node.left)
+      };
+      if (node.right) {
+        que.push(node.right)};
+    };
+
+    while (result.length) {
+      callback(result.shift());
+    };   
+  };  
 };
 
 let root = Tree(sample);
 insert(root, 222)
 prettyPrint(root);
-prettyPrint(find(root, 324));
+
+levelOrder(root, printValue);
