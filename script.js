@@ -94,13 +94,20 @@ function deleteItem(root, key) {
   return root;
 };
 
+function find(source, value) {
+  if (source === null) {
+    return source;
+  };
+  if (value < source.data) {
+    return find(source.left, value);
+  } else if (value > source.data) {
+    return find(source.right, value);
+  } else {
+    return source;
+  };
+};
+
 let root = Tree(sample);
-insert(root, 888);
-insert(root, 6666);
+insert(root, 222)
 prettyPrint(root);
-
-deleteItem(root, 324);
-prettyPrint(root);
-
-deleteItem(root, 6345);
-prettyPrint(root);
+prettyPrint(find(root, 324));
