@@ -59,6 +59,48 @@ function insert(root, key) {
   return root;
 };
 
-prettyPrint(Tree(sample));
-console.log(' ');
-prettyPrint(insert(Tree(sample), 888));
+function deleteItem(root, key) {
+  function getSuccessor(current) {
+    current = current.right;
+    while (current.left !== null) {
+      current = current.left;
+    };
+    return current;
+  };
+  // base case
+  if (root === null) {
+    return root;
+  };
+  // if key is in a subtree
+  if (key < root.data) {
+    root.left = deleteItem(root.left, key);
+  } else if (key > root.data) {
+    root.right = deleteItem(root.right, key);
+  } else {
+  // If root matches the key    
+  // && root has 0 children or only right child
+    if (root.left === null) {
+      return root.right;
+    };
+  // && root has only left child
+    if (root.right === null) {
+      return root.left;
+    };
+  // && root has two children
+    let succ = getSuccessor(root);
+    root.data = succ.data;
+    root.right = deleteItem(root.right, succ.data);
+  };  
+  return root;
+};
+
+let root = Tree(sample);
+insert(root, 888);
+insert(root, 6666);
+prettyPrint(root);
+
+deleteItem(root, 324);
+prettyPrint(root);
+
+deleteItem(root, 6345);
+prettyPrint(root);
