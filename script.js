@@ -112,7 +112,7 @@ function printValue(root) {
 };
 
 function levelOrder(root, callback) {
-  if(!callback) throw new Error('A callback is required!');
+  if (!callback) throw new Error('A callback is required!');
   if (!root) return [];
   let que = [];
   que.push(root);
@@ -136,8 +136,44 @@ function levelOrder(root, callback) {
   };  
 };
 
+function preOrder(root, callback) {
+  if (!callback) throw new Error('A callback is required!');
+  if (!root) return [];
+  callback(root);
+  if (root.left) {
+    preOrder(root.left, callback);
+  };
+  if (root.right) {
+    preOrder(root.right, callback);
+  };
+};
+
+function inOrder(root, callback) {
+  if (!callback) throw new Error('A callback is required!');
+  if (!root) return [];  
+  if (root.left) {
+    inOrder(root.left, callback);
+  };
+  callback(root);
+  if (root.right) {
+    inOrder(root.right, callback);
+  };
+};
+
+function postOrder(root, callback) {
+  if (!callback) throw new Error('A callback is required!');
+  if (!root) return [];  
+  if (root.left) {
+    postOrder(root.left, callback);
+  };  
+  if (root.right) {
+    postOrder(root.right, callback);
+  };
+  callback(root);
+};
+
 let root = Tree(sample);
 insert(root, 222)
 prettyPrint(root);
 
-levelOrder(root, printValue);
+postOrder(root, printValue);
