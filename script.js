@@ -172,8 +172,27 @@ function postOrder(root, callback) {
   callback(root);
 };
 
-let root = Tree(sample);
-insert(root, 222)
-prettyPrint(root);
+function height(node) {
+  if (!node) return 0;
+  let que = [root];
+  let depth = 0;
+  while (que.length) {
+    for (let i=0; i<que.length; i++) {
+      let current = que.shift();
+      if (current.left) {
+        que.push(current.left);
+      };
+      if (current.right) {
+        que.push(current.right);
+      };
+    };    
+    depth++;
+  };
+  return depth-1;
+};
 
-postOrder(root, printValue);
+let root = Tree(sample);
+insert(root, 222);
+insert(root, 333);
+prettyPrint(root);
+console.log(height(root));
