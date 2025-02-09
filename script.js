@@ -245,13 +245,41 @@ function rebalance(root) {
   return Tree(newArr);
 };
 
-let root = Tree(sample);
-insert(root, 222);
-insert(root, 333);
-insert(root, 334);
-prettyPrint(root);
-console.log(isBalanced(root));
+const driverScript = () => {
+  
+  const generateArray = () => {
+    let arr = [];
+    let count = 1;
+    while (count < 100) {
+      arr.push(Math.floor(Math.random()*100));
+      count++;
+    };
+    return arr;
+  };
+  
+  let root = Tree(generateArray());
+  
+  console.log(isBalanced(root));
 
-let newTree = rebalance(root);
-prettyPrint(newTree);
-console.log(isBalanced(newTree));
+  levelOrder(root, printValue);
+  preOrder(root, printValue);
+  inOrder(root, printValue);
+  postOrder(root, printValue);
+
+  insert(root, 777);
+  insert(root, 888);
+  insert(root, 999);
+  
+  console.log(isBalanced(root));
+
+  let rebalancedTree = rebalance(root);
+
+  console.log(isBalanced(rebalancedTree));
+
+  levelOrder(rebalancedTree, printValue);
+  preOrder(rebalancedTree, printValue);
+  inOrder(rebalancedTree, printValue);
+  postOrder(rebalancedTree, printValue);
+};
+
+driverScript();
