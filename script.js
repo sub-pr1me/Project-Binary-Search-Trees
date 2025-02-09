@@ -229,10 +229,29 @@ function isBalanced(root) {
   return status;
 };
 
+function rebalance(root) {
+  // create an empty array
+  let newArr = [];
+
+  // create a method pushing each old tree node data to the new array
+  const repush = (node) => {
+    newArr.push(node.data);
+  };
+
+  //apply method to each node of the old tree
+  inOrder(root, repush);
+
+  // pass new array to the Tree(arr) function
+  return Tree(newArr);
+};
+
 let root = Tree(sample);
 insert(root, 222);
 insert(root, 333);
 insert(root, 334);
 prettyPrint(root);
-
 console.log(isBalanced(root));
+
+let newTree = rebalance(root);
+prettyPrint(newTree);
+console.log(isBalanced(newTree));
