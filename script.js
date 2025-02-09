@@ -133,7 +133,7 @@ function levelOrder(root, callback) {
     while (result.length) {
       callback(result.shift());
     };   
-  };  
+  };
 };
 
 function preOrder(root, callback) {
@@ -174,7 +174,7 @@ function postOrder(root, callback) {
 
 function height(node) {
   if (!node) return 0;
-  let que = [root];
+  let que = [node];
   let depth = 0;
   while (que.length) {
     for (let i=0; i<que.length; i++) {
@@ -191,8 +191,22 @@ function height(node) {
   return depth-1;
 };
 
+function depth(root, x) {
+  if (!root) return -1;
+
+  let size = -1;
+
+  if ((root.data === x)
+    || ((size = depth(root.left, x)) >= 0)
+    || ((size = depth(root.right, x)) >= 0)) {
+    return size+1;
+   };
+  return size;
+};
+
 let root = Tree(sample);
 insert(root, 222);
 insert(root, 333);
 prettyPrint(root);
-console.log(height(root));
+
+console.log(depth(root, 4));
