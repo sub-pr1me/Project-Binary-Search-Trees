@@ -204,9 +204,35 @@ function depth(root, x) {
   return size;
 };
 
+function isBalanced(root) {
+  if (!root) return true;
+  
+  let status = true;
+
+  const diff = (node) => {
+    if (!node) return 0;
+
+    let left = diff(node.left);
+    let right = diff(node.right);
+
+    if (left-right < -1 || left-right > 1) {
+      status = false;
+    };
+
+    if (left > right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    };
+  };
+  diff(root);
+  return status;
+};
+
 let root = Tree(sample);
 insert(root, 222);
 insert(root, 333);
+insert(root, 334);
 prettyPrint(root);
 
-console.log(depth(root, 4));
+console.log(isBalanced(root));
